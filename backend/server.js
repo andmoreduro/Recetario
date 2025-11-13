@@ -86,8 +86,10 @@ app.post("/api/register", async (req, res) => {
 // Endpoint para autenticar a un usuario.
 app.post("/api/login", async (req, res) => {
   const { email, password } = req.body;
+  console.log(`[Login Attempt] Email: ${email}`);
 
   if (!email || !password) {
+    console.log("[Login Failure] Email o contraseña no proporcionados.");
     return res.status(400).json({ message: "Correo y contraseña son obligatorios." });
   }
 
@@ -96,8 +98,14 @@ app.post("/api/login", async (req, res) => {
       where: { email },
     });
 
-    // Si no se encuentra el usuario o la contraseña es incorrecta, devuelve un error.
-    if (!user || !(await verifyPassword(password, user.password))) {
+    if (!user) {
+      console.log(`[Login Failure] Usuario no encontrado: ${email}`);
+      return res.status(401).json({ message: "Correo o contraseña incorrectos." });
+    }
+
+    const isValidPassword = await verifyPassword(password, user.password);
+    if (!isValidPassword) {
+      console.log(`[Login Failure] Contraseña incorrecta para el usuario: ${email}`);
       return res.status(401).json({ message: "Correo o contraseña incorrectos." });
     }
 
@@ -105,9 +113,10 @@ app.post("/api/login", async (req, res) => {
     const userToReturn = { ...user };
     delete userToReturn.password;
 
+    console.log(`[Login Success] Usuario autenticado: ${email}`);
     res.status(200).json(userToReturn);
   } catch (error) {
-    console.error(error);
+    console.error("[Login Error] Error inesperado durante el login:", error);
     res.status(500).json({ message: "Error del servidor." });
   }
 });
