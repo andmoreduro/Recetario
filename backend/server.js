@@ -3,14 +3,23 @@ import bodyParser from "body-parser";
 import cors from "cors";
 import argon2 from "argon2";
 import { PrismaClient } from "@prisma/client";
+import path from "path";
+import { fileURLToPath } from "url";
 
 const prisma = new PrismaClient();
 const app = express();
 const PORT = 3001;
 
+// Configuración para __dirname en ES Modules, necesario para servir archivos estáticos.
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 // Configuración de Middleware
 app.use(cors());
 app.use(bodyParser.json());
+
+// Middleware para servir los archivos estáticos del frontend desde la carpeta 'dist'
+app.use(express.static(path.join(__dirname, "dist")));
 
 /**
  * Genera un hash de la contraseña utilizando Argon2.
@@ -731,6 +740,12 @@ app.get("/api/debug/search", async (req, res) => {
     console.error("Error en el endpoint de depuración de búsqueda:", error);
     res.status(500).json({ message: "Error del servidor durante la depuración." });
   }
+});
+
+// Catch-all: Para cualquier otra ruta no reconocida por la API, se sirve el index.html.
+// Esto es crucial para que el enrutamiento del lado del cliente (React Router) funcione correctamente.
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "dist", "index.html"));
 });
 
 app.listen(PORT, () => {
