@@ -8,7 +8,7 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "build:full": "npm install && npm run build && rm -rf backend/dist && mv dist backend/dist"
+    "build:full": "cd backend && npm run seed && cd .. && npm install && npm run build && rm -rf backend/dist && mv dist backend/dist"
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^7.1.0",
