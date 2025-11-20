@@ -1,5 +1,6 @@
 import { create } from 'zustand';
 import api from '../../../utils/api';
+import toast from 'react-hot-toast';
 
 
 
@@ -43,6 +44,7 @@ export const usePlannerStore = create((set, get) => ({
   addRecipe: async (recipe) => {
     const { planId } = get();
     if (!planId) {
+      toast.error('No se puede añadir recetas, plan no cargado.');
       console.error('No se puede añadir la receta: falta el ID del plan.');
       return;
     }
@@ -56,8 +58,12 @@ export const usePlannerStore = create((set, get) => ({
       set((state) => ({
         planEntries: [...state.planEntries, newEntry],
       }));
+      toast.success(`"${recipe.title}" añadida al plan.`);
     } catch (err) {
       console.error('Error al añadir la receta:', err);
+      const message =
+        err.response?.data?.message || 'No se pudo añadir la receta.';
+      toast.error(message);
     }
   },
 
@@ -73,8 +79,12 @@ export const usePlannerStore = create((set, get) => ({
           (entry) => entry.id !== planEntryId
         ),
       }));
+      toast.success('Receta eliminada del plan.');
     } catch (err) {
       console.error('Error al eliminar la receta:', err);
+      const message =
+        err.response?.data?.message || 'No se pudo eliminar la receta.';
+      toast.error(message);
     }
   },
 }));
