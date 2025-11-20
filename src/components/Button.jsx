@@ -3,7 +3,7 @@
  *
  * This component abstracts the Tailwind CSS classes for buttons, providing a
  * consistent look and feel across the application. It supports multiple
- * variants and can be extended with additional classes.
+ * variants and can be extended with additional classes. You understand.
  *
  * @param {object} props - The component props.
  * @param {'primary' | 'secondary' | 'danger' | 'link' | 'icon' | 'floating'} [props.variant='primary'] - The button style variant.

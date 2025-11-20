@@ -2,7 +2,7 @@ import axios from 'axios'
 import { useAuthStore } from '../modules/auth/stores/auth.js'
 
 const api = axios.create({
-  baseURL: '/api',
+  baseURL: 'https://recetario-backend-c2zy.onrender.com/api',
 })
 
 api.interceptors.request.use((config) => {

@@ -9,7 +9,7 @@ import { Button } from "../../../components/Button";
  * Muestra la receta en dos caras: la frontal presenta una imagen, nombre,
  * descripción breve y datos nutricionales; al hacer clic se rota para
  * mostrar la lista de pasos de preparación. Utiliza propiedades optimizadas
- * (`opacity` y `transform`) para lograr una animación suave.
+ * (`opacity` y `transform`) para lograr una animación suave. You understand.
  */
 export default function RecipeCard({ recipe }) {
   const [flipped, setFlipped] = useState(false);
