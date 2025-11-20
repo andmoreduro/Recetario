@@ -9,13 +9,18 @@ import Profile from "../modules/user/pages/Profile"
 import AuthLayout from "./layout/AuthLayout"
 import GuestLayout from "./layout/GuestLayout"
 import SearchResults from "../modules/recipes/pages/SearchResults"
+import Root from "./Root.jsx"
 
 export const router = createBrowserRouter([
   {
+    path: '/',
+    element: <Root />,
+  },
+  {
     element: <GuestLayout />,
     children: [
-      { path: "/", element: <Login /> },
-      { path: "/register", element: <Register /> },
+      { path: '/login', element: <Login /> },
+      { path: '/register', element: <Register /> },
     ],
   },
   {

@@ -5,7 +5,7 @@ export default function AuthLayout() {
   const { profile } = useAuthStore()
 
   if (!profile) {
-    return <Navigate to="/" />
+    return <Navigate to="/login" />
   }
 
   return <Outlet />
