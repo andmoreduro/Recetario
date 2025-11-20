@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useAuthStore } from '../../auth/stores/auth.js'
 import api from '../../../utils/api'
+import toast from 'react-hot-toast'
 
 /**
  * Hook personalizado para gestionar la lógica del perfil de usuario.
@@ -93,6 +94,7 @@ export function useUserProfile() {
       
       // Actualiza el perfil del usuario en el store de autenticación global.
       login(updatedUser);
+      toast.success('Perfil actualizado con éxito.');
 
       setEditingField(null);
     } catch (error) {
@@ -113,6 +115,7 @@ export function useUserProfile() {
       await api.put('/users/me/pantry', { ingredients: newPantry });
       // Si tiene éxito, actualiza el estado local para reflejar el cambio en la UI.
       setPantry(newPantry);
+      toast.success('Despensa actualizada con éxito.');
     } catch (error) {
       console.error("Error al actualizar la despensa:", error);
       setSaveError("No se pudo guardar la despensa. Inténtalo de nuevo.");

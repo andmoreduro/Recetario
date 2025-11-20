@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { useAuthStore } from '../stores/auth.js'
 import { loginSchema } from '../schemas/schema'
 import api from '../../../utils/api'
+import toast from 'react-hot-toast'
 
 export function useLogin() {
   const [data, setData] = useState({ email: '', password: '' })
@@ -32,6 +33,7 @@ export function useLogin() {
     try {
       const response = await api.post('/login', result.data)
       login(response.data)
+      toast.success('¡Bienvenido de nuevo!')
       nav('/home')
     } catch (error) {
       if (error.response?.data?.message) {

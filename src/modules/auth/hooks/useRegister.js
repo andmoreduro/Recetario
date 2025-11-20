@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { useAuthStore } from '../stores/auth.js'
 import { registerSchema } from '../schemas/schema'
 import api from '../../../utils/api'
+import toast from 'react-hot-toast'
 
 export function useRegister() {
   const [data, setData] = useState({
@@ -40,6 +41,7 @@ export function useRegister() {
     try {
       const response = await api.post('/register', result.data)
       login(response.data)
+      toast.success('¡Registro exitoso!')
       nav('/home')
     } catch (error) {
       if (error.response?.data?.message) {

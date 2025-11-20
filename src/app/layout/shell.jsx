@@ -7,6 +7,7 @@ import { usePlannerStore } from "../../modules/recipes/stores/planner.js";
 import PlannerButton from "./components/PlannerButton.jsx";
 import HamburgerMenu from "./components/HamburgerMenu.jsx";
 import useClickOutside from "../../hooks/useClickOutside.js";
+import { Toaster } from "react-hot-toast";
 
 /**
  * Componente principal del layout de la aplicación (Shell).
@@ -34,6 +35,7 @@ export default function Shell() {
 
   return (
     <div className="min-h-screen flex flex-col bg-emerald-50 text-slate-800">
+      <Toaster position="top-center" />
       <animated.header
         style={header}
         className="sticky top-0 bg-emerald-50/80 backdrop-blur z-10"
