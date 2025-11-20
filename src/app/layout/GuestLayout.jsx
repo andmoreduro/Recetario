@@ -1,4 +1,5 @@
 import { Navigate, Outlet } from 'react-router-dom'
+import { Toaster } from 'react-hot-toast'
 import { useAuthStore } from '../../modules/auth/stores/auth.js'
 
 export default function GuestLayout() {
@@ -8,5 +9,10 @@ export default function GuestLayout() {
     return <Navigate to="/home" />
   }
 
-  return <Outlet />
+  return (
+    <>
+      <Toaster position="top-center" />
+      <Outlet />
+    </>
+  )
 }
