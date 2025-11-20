@@ -102,6 +102,7 @@ export function useUserProfile() {
       const message =
         error.response?.data?.message || 'No se pudo guardar el perfil.';
       setSaveError(message);
+      toast.error(message);
     } finally {
       setIsSaving(false);
     }
@@ -118,7 +119,9 @@ export function useUserProfile() {
       toast.success('Despensa actualizada con éxito.');
     } catch (error) {
       console.error("Error al actualizar la despensa:", error);
-      setSaveError("No se pudo guardar la despensa. Inténtalo de nuevo.");
+      const message = "No se pudo guardar la despensa. Inténtalo de nuevo.";
+      setSaveError(message);
+      toast.error(message);
     } finally {
       setIsSaving(false);
     }

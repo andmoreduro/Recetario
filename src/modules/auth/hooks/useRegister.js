@@ -44,11 +44,10 @@ export function useRegister() {
       toast.success('¡Registro exitoso!')
       nav('/home')
     } catch (error) {
-      if (error.response?.data?.message) {
-        setErrors({ api: error.response.data.message })
-      } else {
-        setErrors({ api: 'Ocurrió un error. Inténtalo de nuevo.' })
-      }
+      const message =
+        error.response?.data?.message || 'Ocurrió un error. Inténtalo de nuevo.'
+      setErrors({ api: message })
+      toast.error(message)
     }
   }
 
